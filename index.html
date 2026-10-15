@@ -1,0 +1,530 @@
+<!doctype html>
+<!--
+Fonts used on this website (loaded from Google Fonts):
+
+Doto
+  Copyright 2024 The Doto Project Authors (https://github.com/oliverlalan/Doto)
+  License: SIL Open Font License, Version 1.1 (OFL-1.1) https://openfontlicense.org
+
+DotGothic16
+  Copyright 2020 The DotGothic16 Project Authors (https://github.com/fontworks-fonts/DotGothic16)
+  License: SIL Open Font License, Version 1.1 (OFL-1.1) https://openfontlicense.org
+
+Noto Sans JP
+  Copyright 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'
+  License: SIL Open Font License, Version 1.1 (OFL-1.1) https://openfontlicense.org
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#efeeeb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101010" media="(prefers-color-scheme: dark)">
+<title>Kuruminha</title>
+<meta name="description" content="Kuruminha: a desktop companion that walks your favorite avatar across your Windows or Linux desktop.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23101010'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23d71920'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Doto:wght@900&family=DotGothic16&family=Noto+Sans+JP:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#efeeeb;--card:#fff;--hover:#f9f8f5;--bd:#d9d8d4;--tx:#171717;--sc:#62615e;--ac:#c9141b;--on:#fff;--dot:rgba(0,0,0,.16);--sub:#efeeeb;--hdr:rgba(239,238,235,.88);--bigp:rgba(239,238,235,.7);--r:28px;color-scheme:light dark}
+@media (prefers-color-scheme:dark){:root{--bg:#101010;--card:#1e1e1e;--hover:#282828;--bd:#343434;--tx:#f5f4f0;--sc:#ababaa;--ac:#d71920;--dot:rgba(255,255,255,.13);--sub:#2a2a2a;--hdr:rgba(16,16,16,.88);--bigp:rgba(16,16,16,.7)}}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--tx);font-family:'Noto Sans JP','Hiragino Sans','Hiragino Kaku Gothic ProN','Yu Gothic UI','Meiryo','Noto Sans CJK JP',system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;line-height:1.7;overflow-wrap:break-word;padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right);background-image:radial-gradient(var(--dot) 1.2px,transparent 1.4px);background-size:22px 22px;-webkit-font-smoothing:antialiased}
+.dot{font-family:'Doto','DotGothic16',ui-monospace,monospace;font-weight:900;line-height:1.05;letter-spacing:.01em}
+html[lang=ja] .dot{font-family:'DotGothic16','Doto',ui-monospace,monospace;font-weight:400}
+html[lang=ja] .dot.brand{font-family:'Doto','DotGothic16',ui-monospace,monospace;font-weight:900}
+a{color:inherit}
+:focus{outline:3px solid var(--ac);outline-offset:3px;border-radius:12px}
+:focus:not(:focus-visible){outline:none}
+:focus-visible{outline:3px solid var(--ac);outline-offset:3px;border-radius:12px}
+button,input{-webkit-appearance:none;appearance:none;color:inherit}
+.wrap{width:calc(100% - 40px);max-width:1120px;margin:0 auto}
+header{padding-top:env(safe-area-inset-top,0px);position:-webkit-sticky;position:sticky;top:0;z-index:20;background:var(--hdr);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd)}
+.bar{display:flex;align-items:center;gap:16px;height:64px}
+.bar .menu{display:none;margin-left:6px}
+.menu svg{width:20px;height:20px}
+.menu[aria-expanded=true] circle:nth-child(even){opacity:0}
+nav .navdl{display:none}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-size:1.6rem}
+.logo i{width:12px;height:12px;border-radius:50%;background:var(--ac);display:block}
+nav{margin-left:auto;display:flex;gap:22px}
+nav a{text-decoration:none;color:var(--sc);font-size:.9rem;font-weight:600}
+nav a:hover{color:var(--tx)}
+.lang{display:flex;border:1px solid var(--bd);border-radius:999px;padding:3px;background:var(--card)}
+.lang button{font:inherit;font-size:.78rem;font-weight:600;border:0;background:none;color:var(--sc);padding:5px 12px;border-radius:999px;cursor:pointer}
+.lang button[aria-pressed=true]{background:var(--tx);color:var(--bg)}
+.btn{display:inline-flex;align-items:center;gap:10px;font:inherit;font-weight:600;font-size:.95rem;text-decoration:none;border-radius:999px;padding:13px 26px;border:1px solid var(--tx);cursor:pointer;transition:transform .15s,background .15s}
+.btn:active{transform:scale(.97)}
+.btn.main{background:var(--ac);border-color:var(--ac);color:var(--on)}
+.btn.main:hover{filter:brightness(1.1)}
+.btn.sub{background:transparent;color:var(--tx)}
+.btn.sub:hover{background:var(--card)}
+.btn.sm{padding:8px 18px;font-size:.85rem}
+.btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hero{padding:72px 0 40px}
+.ver{display:inline-flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.chip{font-size:.78rem;font-weight:600;border:1px solid var(--bd);background:var(--card);border-radius:999px;padding:4px 14px;color:var(--sc)}
+h1{font-size:3.4rem;font-size:clamp(2.6rem,13vw,9.5rem)}
+h1 b{color:var(--ac)}
+.lead{font-size:1.15rem;font-size:clamp(1.05rem,2.2vw,1.35rem);max-width:34em;margin:22px 0 34px;color:var(--sc)}
+.cta{display:flex;gap:14px;flex-wrap:wrap}
+.stage{margin-top:56px;border:1px solid var(--bd);border-radius:var(--r);background:var(--card);overflow:hidden}
+.stage .top{display:flex;align-items:center;gap:7px;padding:12px 18px;border-bottom:1px solid var(--bd);font-size:.78rem;color:var(--sc)}
+.stage .top i{width:9px;height:9px;border-radius:50%;background:var(--bd)}
+.stage .top i:first-child{background:var(--ac)}
+.stage .top span{margin-left:auto}
+.screen{position:relative;background:#000;padding-top:56.25%}
+.screen video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:contain;background:#000;display:block;cursor:pointer}
+.bigplay{position:absolute;left:50%;top:50%;width:92px;height:92px;margin:-46px 0 0 -46px;border-radius:50%;border:0;background:var(--ac);color:#fff;cursor:pointer;display:grid;place-items:center;padding:0;transition:transform .15s}
+.bigplay:hover{transform:scale(1.07)}
+.bigplay svg{width:44px;height:44px;fill:currentColor}
+.playing .bigplay,.failed .bigplay,.loading .bigplay{display:none}
+.load{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;display:none;pointer-events:none}
+.loading .load{display:block}
+.failed .load{display:none}
+.load i{position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:#fff;opacity:.12;animation:ld 1.2s linear infinite}
+@keyframes ld{0%{opacity:1;background:#d71920}40%{opacity:.55;background:#fff}100%{opacity:.12;background:#fff}}
+.err{position:absolute;top:0;left:0;width:100%;height:100%;display:none;place-items:center;text-align:center;padding:24px;color:#f5f4f0;background:#101010 radial-gradient(rgba(255,255,255,.13) 1.2px,transparent 1.4px);background-size:22px 22px;font-size:.92rem}
+.failed .err{display:grid}
+.ctl{display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding:14px 18px;border-top:1px solid var(--bd)}
+.failed .ctl{opacity:.4;pointer-events:none}
+.ib{width:42px;height:42px;flex:none;border-radius:50%;border:1px solid var(--bd);background:var(--bg);color:var(--tx);display:grid;place-items:center;cursor:pointer;padding:0;transition:background .15s,transform .15s}
+.ib:hover{background:var(--hover)}
+.ib:active{transform:scale(.94)}
+.ib.main{background:var(--ac);border-color:var(--ac);color:#fff}
+.ib.main:hover{filter:brightness(1.1)}
+.ib[aria-pressed=true]{color:var(--ac)}
+.ib svg{width:23px;height:23px;fill:currentColor}
+.tm{font-variant-numeric:tabular-nums;font-size:.82rem;font-weight:600;color:var(--sc);min-width:3.2em}
+.tm.dur{text-align:right}
+.dots{position:relative;flex:1 1 120px;min-width:0;height:30px;cursor:pointer;touch-action:none;background:radial-gradient(circle at 50% 50%,var(--bd) 2.2px,transparent 2.8px) 0 0/8px 30px repeat-x}
+.dots i{position:absolute;left:0;top:0;height:100%;width:0;overflow:hidden;background:radial-gradient(circle at 50% 50%,var(--ac) 2.2px,transparent 2.8px) 0 0/8px 30px repeat-x}
+.dots b{position:absolute;top:5px;left:0;width:4px;height:20px;margin-left:-2px;border-radius:4px;background:var(--ac);transition:height .15s,top .15s}
+.dots:hover b,.dots:focus b{top:2px;height:26px}
+.dots.vol{flex:none;width:88px}
+.playing .top i:first-child{animation:blink 1.4s ease-in-out infinite}
+@keyframes blink{50%{opacity:.25}}
+.player:fullscreen{margin:0;border:0;border-radius:0;display:flex;flex-direction:column;width:100%;height:100%;background:var(--card)}
+.player:fullscreen .screen{flex:1;padding-top:0}
+.player:-webkit-full-screen{margin:0;border:0;border-radius:0;display:flex;flex-direction:column;width:100%;height:100%;background:var(--card)}
+.player:-webkit-full-screen .screen{flex:1;padding-top:0}
+section{padding:84px 0}
+h2{font-size:2.6rem;font-size:clamp(2.2rem,5.5vw,3.8rem);margin-bottom:12px}
+.sec-sub{color:var(--sc);max-width:36em;margin-bottom:40px}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:10px;min-height:230px}
+.c2{grid-column:span 2}.c3{grid-column:span 3}.c4{grid-column:span 4}
+.card h3{font-size:1.45rem}
+.card p{color:var(--sc);font-size:.94rem}
+.glyph{width:56px;height:56px;margin-bottom:auto}
+.glyph circle{fill:var(--tx)}
+.glyph circle.r{fill:var(--ac)}
+.glyph circle.o{fill:var(--bd)}
+.card.red{background:var(--ac);border-color:var(--ac);color:var(--on)}
+.card.red p{color:rgba(255,255,255,.85)}
+.card.red .glyph circle{fill:var(--on)}
+.card.red .glyph circle.o{fill:rgba(255,255,255,.3)}
+.bubble{margin-top:auto;display:flex;flex-direction:column;gap:6px;font-size:.85rem}
+.bubble span{padding:7px 14px;border-radius:18px;max-width:85%}
+.bubble .u{align-self:flex-end;background:rgba(255,255,255,.22)}
+.bubble .a{background:var(--on);color:#171717}
+.tog{margin-top:auto;display:flex;align-items:center;gap:14px}
+.sw{width:58px;height:32px;border-radius:999px;border:1px solid var(--bd);background:var(--bg);position:relative;cursor:pointer;padding:0;transition:background .2s}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:var(--sc);transition:transform .2s,background .2s}
+.sw[aria-checked=true]{background:var(--ac);border-color:var(--ac)}
+.sw[aria-checked=true]::after{transform:translateX(26px);background:var(--on)}
+.mem{display:grid;grid-template-columns:repeat(20,1fr);gap:4px;flex:1}
+.mem i{display:block;height:0;padding-bottom:100%;border-radius:50%;background:var(--bd);transition:background .3s}
+.mem i.on{background:var(--tx)}
+.chips{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+.chips .dot{font-size:1.5rem;border:1px solid var(--bd);border-radius:999px;padding:4px 18px;font-weight:400}
+.who{margin-top:auto;display:flex;gap:10px}
+.who i{width:34px;height:34px;border-radius:50%;background:var(--tx)}
+.who i:nth-child(2){background:var(--ac)}
+.who i:nth-child(3){background:var(--sc)}
+.who i:nth-child(4){background:var(--bd)}
+.dl{display:grid;grid-template-columns:1.1fr 1fr;gap:16px}
+.dl .card{min-height:0}
+.dl .big{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.dl .big p{color:var(--bigp)}
+.dl .big .btn.main{align-self:flex-start;margin-top:14px}
+ol{list-style:none;padding:0;display:flex;flex-direction:column;gap:14px;counter-reset:s}
+ol li{counter-increment:s;display:flex;gap:14px;align-items:flex-start;font-size:.94rem}
+ol li::before{content:counter(s);font-family:'Doto',monospace;font-weight:900;width:34px;height:34px;flex:none;border-radius:50%;border:1px solid var(--bd);display:grid;place-items:center;font-size:1.1rem}
+.req{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;font-size:.92rem;margin-top:8px}
+.req dt{color:var(--sc)}.req dd{margin:0;font-weight:600}
+.lic-box{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:28px;margin-bottom:16px}
+.lic-box h3{font-size:1.4rem;margin-bottom:6px}
+.lic-box p{color:var(--sc);font-size:.92rem}
+pre{white-space:pre-wrap;font:inherit;font-size:.82rem;color:var(--sc);max-height:280px;overflow:auto;margin-top:14px;padding:16px;border:1px solid var(--bd);border-radius:18px;background:var(--bg)}
+input[type=search]{font:inherit;font-size:.9rem;width:100%;margin:14px 0;padding:11px 18px;border-radius:999px;border:1px solid var(--bd);background:var(--bg);color:var(--tx)}
+.tbl{max-height:420px;overflow:auto;border:1px solid var(--bd);border-radius:18px}
+table{width:100%;border-collapse:collapse;font-size:.85rem;min-width:520px}
+th,td{text-align:left;padding:9px 16px;border-bottom:1px solid var(--bd)}
+th{position:-webkit-sticky;position:sticky;top:0;background:var(--card);font-weight:600}
+td:nth-child(2){color:var(--sc)}
+tr:last-child td{border-bottom:0}
+footer{border-top:1px solid var(--bd);padding:36px 0 48px;font-size:.88rem;color:var(--sc)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:16px 32px;align-items:center;justify-content:space-between}
+html,.tbl,pre{scrollbar-width:thin;scrollbar-color:var(--sc) transparent}
+html{scrollbar-color:var(--sc) var(--bg)}
+@supports selector(::-webkit-scrollbar){
+html,.tbl,pre{scrollbar-width:auto;scrollbar-color:auto}
+::-webkit-scrollbar{width:18px;height:18px;background:transparent}
+html::-webkit-scrollbar{background:var(--bg)}
+::-webkit-scrollbar-track{background:transparent;border-radius:999px;border:5px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-track:hover{background-color:var(--sub)}
+::-webkit-scrollbar-thumb{background-color:var(--sc);background-clip:padding-box;border:7px solid transparent;border-radius:999px;min-height:46px;min-width:46px}
+::-webkit-scrollbar-thumb:hover{border-width:5px}
+::-webkit-scrollbar-thumb:active{background-color:var(--ac);border-width:5px}
+::-webkit-scrollbar-button:single-button{display:block;width:10px;height:10px;background:transparent}
+html::-webkit-scrollbar-button:single-button{background:var(--bg)}
+::-webkit-scrollbar-corner{background:transparent}
+}
+@media (min-width:1600px){html{font-size:112.5%}.wrap{max-width:1280px}}
+.card h3{line-height:1.2}
+@media (max-width:1000px){.card{padding:24px}.card h3{font-size:1.3rem}.c2,.c3,.c4{grid-column:span 3}.chips .dot{font-size:1.3rem;padding:3px 14px}}
+@media (max-width:980px){
+.bar .menu{display:grid}
+.lang{margin-left:auto}
+.bar>.dlink{display:none}
+nav{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;gap:0;margin:0;padding:4px 20px 22px;background:var(--bg);border-bottom:1px solid var(--bd);max-height:calc(100vh - 80px);overflow:auto}
+header.open nav{display:flex}
+nav a{padding:15px 0;border-bottom:1px solid var(--bd);font-size:1.05rem;color:var(--tx)}
+nav a.navdl{display:inline-flex;justify-content:center;margin-top:20px;padding:13px 26px;font-size:.95rem}
+.dl{grid-template-columns:1fr}
+.card{min-height:0}
+.hero{padding-top:44px}
+section{padding:60px 0}
+}
+@media (max-width:700px){.c2,.c3,.c4{grid-column:span 6}.glyph{width:48px;height:48px}}
+@media (max-width:640px){.bigplay{width:72px;height:72px;margin:-36px 0 0 -36px}.bigplay svg{width:34px;height:34px}.tm.cur{margin-right:auto}.dots.seek{order:9;flex:1 1 100%}.ctl{padding:12px 14px;gap:10px}.stage{margin-top:40px}}
+@media (max-width:520px){.vol{display:none}.cta .btn{width:100%;justify-content:center}.card,.lic-box{padding:22px;border-radius:24px}.stage,.tbl{border-radius:24px}.hero{padding-bottom:24px}.sec-sub{margin-bottom:28px}footer .wrap{flex-direction:column;align-items:flex-start;gap:12px}}
+@media (max-width:420px){.bar{gap:8px}.logo{font-size:1.25rem}.lang button{padding:6px 8px;font-size:.72rem}.menu{margin-left:0}.wrap{width:calc(100% - 32px)}nav{padding-left:16px;padding-right:16px}}
+@media (pointer:coarse){.lang button{padding-top:9px;padding-bottom:9px}.dots{height:36px}}
+@media (max-height:500px) and (orientation:landscape){.hero{padding-top:28px}.bigplay{width:60px;height:60px;margin:-30px 0 0 -30px}}
+@media (forced-colors:active){.card,.chip,.lang,.sw,.tbl,pre,.stage{border:1px solid CanvasText}.sw::after{background:CanvasText}.mem i.on{background:Highlight}}
+@media (prefers-reduced-motion:reduce){.load i{opacity:.6}.load i:first-child{opacity:1;background:#d71920}*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap bar">
+<a class="logo dot brand" href="#top" aria-label="Kuruminha"><i></i>Kuruminha</a>
+<nav id="mnav">
+<a href="#features" data-i="nav_features">Features</a>
+<a href="#download" data-i="nav_download">Download</a>
+<a href="#license" data-i="nav_license">Licenses</a>
+<a class="btn main navdl" href="#download" data-i="btn_dl">Download</a>
+</nav>
+<div class="lang" role="group" aria-label="Language">
+<button type="button" data-lang="en" aria-pressed="false">EN</button>
+<button type="button" data-lang="ru" aria-pressed="false">RU</button>
+<button type="button" data-lang="ja" aria-pressed="false">JA</button>
+</div>
+<a class="btn main sm dlink" href="#download" data-i="btn_dl">Download</a>
+<button type="button" class="ib menu" id="mb" aria-expanded="false" aria-controls="mnav" data-al="nav_menu" aria-label="Menu"><svg viewBox="0 0 3 3" aria-hidden="true"><circle cx=".5" cy=".5" r=".3"/><circle cx="1.5" cy=".5" r=".3"/><circle cx="2.5" cy=".5" r=".3"/><circle cx=".5" cy="1.5" r=".3"/><circle cx="1.5" cy="1.5" r=".3"/><circle cx="2.5" cy="1.5" r=".3"/><circle cx=".5" cy="2.5" r=".3"/><circle cx="1.5" cy="2.5" r=".3"/><circle cx="2.5" cy="2.5" r=".3"/></svg></button>
+</div>
+</header>
+
+<main id="top">
+<div class="wrap hero">
+<div class="ver"><span class="chip">Windows</span><span class="chip">Linux</span><span class="chip">MIT</span></div>
+<h1 class="dot brand">Kuruminha<b>.</b></h1>
+<p class="lead" data-i="hero_lead">A tiny desktop companion. Pick any avatar you love and let it wander across your screen while you work.</p>
+<div class="cta">
+<a class="btn main dlink" href="#download"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 11l5 5 5-5M5 20h14"/></svg><span data-i="btn_dl_win">Download for Windows / Linux</span></a>
+<a class="btn sub" href="#features" data-i="btn_more">See features</a>
+</div>
+<div class="stage player" id="pl">
+<div class="top"><i></i><i></i><i></i><span data-i="stage_cap">Promo video</span></div>
+<div class="screen">
+<video src="./promotion.mp4" preload="metadata" playsinline>Kuruminha: <a href="./promotion.mp4">promotion.mp4</a></video>
+<div class="load" aria-hidden="true"></div>
+<button type="button" class="bigplay" aria-label="Play"></button>
+<div class="err"><p data-i="v_err">The video could not be loaded.</p></div>
+</div>
+<div class="ctl">
+<button type="button" class="ib main pp" aria-label="Play"></button>
+<span class="tm cur">0:00</span>
+<div class="dots seek" role="slider" tabindex="0" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i><b></b></div>
+<span class="tm dur">0:00</span>
+<button type="button" class="ib mu" aria-label="Mute" aria-pressed="false"></button>
+<div class="dots vol" role="slider" tabindex="0" aria-label="Volume" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><i></i><b></b></div>
+<button type="button" class="ib fs" aria-label="Fullscreen"></button>
+</div>
+</div>
+</div>
+
+<section id="features">
+<div class="wrap">
+<h2 class="dot" data-i="f_title">What it does</h2>
+<p class="sec-sub" data-i="f_sub">Lightweight, transparent, and always on your desktop. It lives in the system tray and stays out of your way.</p>
+<div class="grid">
+<article class="card c4">
+<svg class="glyph" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="8" r="5"/><circle cx="28" cy="22" r="5"/><circle cx="14" cy="26" r="4" class="o"/><circle cx="42" cy="26" r="4" class="o"/><circle cx="28" cy="36" r="5"/><circle cx="19" cy="48" r="4" class="r"/><circle cx="37" cy="48" r="4"/></svg>
+<h3 class="dot" data-i="f1_t">Your favorite avatar</h3><p data-i="f1_d">Load the VRM avatar you love and see it come to life, rendered with a transparent background and no window frame.</p>
+</article>
+<article class="card c2">
+<svg class="glyph" viewBox="0 0 56 56" aria-hidden="true"><circle cx="8" cy="46" r="4"/><circle cx="20" cy="46" r="4"/><circle cx="32" cy="46" r="4"/><circle cx="44" cy="46" r="4" class="r"/><circle cx="14" cy="34" r="3" class="o"/><circle cx="26" cy="34" r="3" class="o"/><circle cx="38" cy="34" r="3" class="o"/></svg>
+<h3 class="dot" data-i="f2_t">Walks your desktop</h3><p data-i="f2_d">Your avatar strolls along your screen, right on top of your windows and wallpaper.</p>
+</article>
+<article class="card c3 red">
+<svg class="glyph" viewBox="0 0 56 56" aria-hidden="true"><circle cx="10" cy="10" r="4"/><circle cx="24" cy="10" r="4"/><circle cx="38" cy="10" r="4"/><circle cx="10" cy="24" r="4"/><circle cx="24" cy="24" r="4" class="o"/><circle cx="10" cy="38" r="4"/><circle cx="46" cy="44" r="5"/></svg>
+<h3 class="dot" data-i="f3_t">AI and agents with free MODs</h3><p data-i="f3_d">Add free MODs to chat with an AI or let it operate as an agent for you.</p>
+<div class="bubble"><span class="u" data-i="f3_u">Open my notes, please.</span><span class="a" data-i="f3_a">Sure. Opening them now.</span></div>
+</article>
+<article class="card c3">
+<svg class="glyph" viewBox="0 0 56 56" aria-hidden="true"><circle cx="12" cy="14" r="6"/><circle cx="12" cy="36" r="4" class="o"/><circle cx="32" cy="14" r="6" class="r"/><circle cx="32" cy="36" r="4" class="o"/><circle cx="50" cy="14" r="4"/></svg>
+<h3 class="dot" data-i="f4_t">Many at once</h3><p data-i="f4_d">Let several avatars walk together. Build a little crowd on your desktop.</p>
+<div class="who"><i></i><i></i><i></i><i></i></div>
+</article>
+<article class="card c4">
+<svg class="glyph" viewBox="0 0 56 56" aria-hidden="true"><circle cx="8" cy="48" r="4"/><circle cx="8" cy="36" r="4"/><circle cx="8" cy="24" r="4"/><circle cx="22" cy="48" r="4"/><circle cx="22" cy="36" r="4"/><circle cx="36" cy="48" r="4"/><circle cx="48" cy="48" r="4" class="o"/><circle cx="48" cy="12" r="5" class="r"/></svg>
+<h3 class="dot" data-i="f5_t">Automatic memory release</h3><p data-i="f5_d">Kuruminha frees memory by itself to stay light. Prefer to manage it yourself? Turn it off any time.</p>
+<div class="tog"><button type="button" class="sw" id="sw" role="switch" aria-checked="true" data-al="f5_t" aria-label="Automatic memory release"></button><div class="mem" id="mem"></div></div>
+</article>
+<article class="card c2">
+<svg class="glyph" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="22" fill="none" stroke="currentColor" stroke-width="3" style="stroke:var(--tx)"/><circle cx="28" cy="28" r="6" class="r"/><circle cx="28" cy="10" r="3"/><circle cx="46" cy="28" r="3"/><circle cx="10" cy="28" r="3"/></svg>
+<h3 class="dot" data-i="f6_t">Multilingual</h3><p data-i="f6_d">English, Russian and Japanese. It follows your system language by default.</p>
+<div class="chips"><span class="dot">EN</span><span class="dot">RU</span><span class="dot">JA</span></div>
+</article>
+</div>
+</div>
+</section>
+
+<section id="download">
+<div class="wrap">
+<h2 class="dot" data-i="d_title">Get Kuruminha</h2>
+<p class="sec-sub" data-i="d_sub">Free and open source. Download it and your avatar will be walking in a minute.</p>
+<div class="dl">
+<div class="card big">
+<h3 class="dot brand">Kuruminha</h3>
+<p data-i="d_note">Free to use under the MIT License.</p>
+<dl class="req">
+<dt data-i="d_os">Supported OS</dt><dd>Windows / Linux</dd>
+<dt data-i="d_lic">License</dt><dd>MIT</dd>
+</dl>
+<a class="btn main" id="dlbtn" href="https://github.com/Rafych/kuruminha/releases/latest" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 11l5 5 5-5M5 20h14"/></svg><span data-i="btn_dl_win">Download for Windows / Linux</span></a>
+</div>
+<div class="card">
+<h3 class="dot" data-i="d_steps">Getting started</h3>
+<ol>
+<li data-i="d_s1">Download and extract the archive.</li>
+<li data-i="d_s2">Run Kuruminha. It appears in the system tray.</li>
+<li data-i="d_s3">Right-click the tray icon, open Settings and choose your avatar.</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+
+<section id="license">
+<div class="wrap">
+<h2 class="dot" data-i="l_title">Licenses</h2>
+<p class="sec-sub" data-i="l_sub">Kuruminha is built on wonderful open source work. Thank you to every author.</p>
+<div class="lic-box">
+<h3 class="dot">Kuruminha (MIT)</h3>
+<p data-i="l_app">Kuruminha itself is released under the MIT License.</p>
+<pre>MIT License
+
+Copyright (c) 2026 Rafych
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</pre>
+</div>
+<div class="lic-box">
+<h3 class="dot" data-i="l_fonts">Fonts</h3>
+<p data-i="l_fonts_d">Bundled typefaces, each under the SIL Open Font License 1.1.</p>
+<div class="tbl" style="margin-top:14px"><table><thead><tr><th data-i="l_name">Name</th><th data-i="l_copy">Copyright</th><th data-i="l_license">License</th></tr></thead><tbody id="fonts"><tr><td>Doto</td><td>Copyright 2024 The Doto Project Authors</td><td>OFL-1.1</td></tr><tr><td>DotGothic16</td><td>Copyright 2020 The DotGothic16 Project Authors</td><td>OFL-1.1</td></tr><tr><td>Noto Sans JP</td><td>Copyright 2014-2021 Adobe</td><td>OFL-1.1</td></tr></tbody></table></div>
+</div>
+<div class="lic-box">
+<h3 class="dot" data-i="l_libs">Libraries</h3>
+<p><span data-i="l_libs_d">Libraries and runtime used by the software. Full license texts are in the app's license window.</span> <span id="cnt">(172/172)</span></p>
+<input type="search" id="q" data-ph="l_search" placeholder="Search libraries or licenses" autocomplete="off">
+<div class="tbl"><table><thead><tr><th data-i="l_name">Name</th><th data-i="l_ver">Version</th><th data-i="l_license">License</th></tr></thead><tbody id="libs"><tr><td>adler2</td><td>2.0.1</td><td>0BSD OR MIT OR Apache-2.0</td></tr><tr><td>aho-corasick</td><td>1.1.5</td><td>Unlicense OR MIT</td></tr><tr><td>anstream</td><td>1.0.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>anstyle</td><td>1.0.14</td><td>MIT OR Apache-2.0</td></tr><tr><td>anstyle-parse</td><td>1.0.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>anstyle-query</td><td>1.1.5</td><td>MIT OR Apache-2.0</td></tr><tr><td>anstyle-wincon</td><td>3.0.11</td><td>MIT OR Apache-2.0</td></tr><tr><td>anyhow</td><td>1.0.104</td><td>MIT OR Apache-2.0</td></tr><tr><td>arrayref</td><td>0.3.9</td><td>BSD-2-Clause</td></tr><tr><td>arrayvec</td><td>0.7.8</td><td>MIT OR Apache-2.0</td></tr><tr><td>ash</td><td>0.38.0+1.3.281</td><td>MIT OR Apache-2.0</td></tr><tr><td>autocfg</td><td>1.5.1</td><td>Apache-2.0 OR MIT</td></tr><tr><td>base64</td><td>0.13.1</td><td>MIT/Apache-2.0</td></tr><tr><td>base64</td><td>0.22.1</td><td>MIT OR Apache-2.0</td></tr><tr><td>bit-set</td><td>0.8.0</td><td>Apache-2.0 OR MIT</td></tr><tr><td>bit-vec</td><td>0.8.0</td><td>Apache-2.0 OR MIT</td></tr><tr><td>bitflags</td><td>1.3.2</td><td>MIT/Apache-2.0</td></tr><tr><td>bitflags</td><td>2.13.1</td><td>MIT OR Apache-2.0</td></tr><tr><td>bytemuck</td><td>1.25.2</td><td>Zlib OR Apache-2.0 OR MIT</td></tr><tr><td>bytemuck_derive</td><td>1.12.0</td><td>Zlib OR Apache-2.0 OR MIT</td></tr><tr><td>byteorder</td><td>1.5.0</td><td>Unlicense OR MIT</td></tr><tr><td>byteorder-lite</td><td>0.1.0</td><td>Unlicense OR MIT</td></tr><tr><td>cfg-if</td><td>1.0.4</td><td>MIT OR Apache-2.0</td></tr><tr><td>cfg_aliases</td><td>0.1.1</td><td>MIT</td></tr><tr><td>cfg_aliases</td><td>0.2.2</td><td>MIT</td></tr><tr><td>codespan-reporting</td><td>0.12.0</td><td>Apache-2.0</td></tr><tr><td>colorchoice</td><td>1.0.5</td><td>MIT OR Apache-2.0</td></tr><tr><td>crc32fast</td><td>1.5.1</td><td>MIT OR Apache-2.0</td></tr><tr><td>cursor-icon</td><td>1.2.0</td><td>MIT OR Apache-2.0 OR Zlib</td></tr><tr><td>data-url</td><td>0.3.2</td><td>MIT OR Apache-2.0</td></tr><tr><td>defmt</td><td>1.1.1</td><td>MIT OR Apache-2.0</td></tr><tr><td>defmt-macros</td><td>1.1.1</td><td>MIT OR Apache-2.0</td></tr><tr><td>defmt-parser</td><td>1.0.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>document-features</td><td>0.2.12</td><td>MIT OR Apache-2.0</td></tr><tr><td>env_filter</td><td>2.0.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>env_logger</td><td>0.11.11</td><td>MIT OR Apache-2.0</td></tr><tr><td>equivalent</td><td>1.0.2</td><td>Apache-2.0 OR MIT</td></tr><tr><td>euclid</td><td>0.22.14</td><td>MIT OR Apache-2.0</td></tr><tr><td>fdeflate</td><td>0.3.7</td><td>MIT OR Apache-2.0</td></tr><tr><td>flate2</td><td>1.1.10</td><td>MIT OR Apache-2.0</td></tr><tr><td>float-cmp</td><td>0.9.0</td><td>MIT</td></tr><tr><td>foldhash</td><td>0.1.5</td><td>Zlib</td></tr><tr><td>getrandom</td><td>0.2.17</td><td>MIT OR Apache-2.0</td></tr><tr><td>gl_generator</td><td>0.14.0</td><td>Apache-2.0</td></tr><tr><td>glam</td><td>0.25.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>glow</td><td>0.16.0</td><td>MIT OR Apache-2.0 OR Zlib</td></tr><tr><td>gltf</td><td>1.4.1</td><td>MIT OR Apache-2.0</td></tr><tr><td>gltf-derive</td><td>1.4.1</td><td>MIT OR Apache-2.0</td></tr><tr><td>gltf-json</td><td>1.4.1</td><td>MIT OR Apache-2.0</td></tr><tr><td>glutin_wgl_sys</td><td>0.6.1</td><td>Apache-2.0</td></tr><tr><td>gpu-alloc</td><td>0.6.2</td><td>MIT OR Apache-2.0</td></tr><tr><td>gpu-alloc-types</td><td>0.3.1</td><td>MIT OR Apache-2.0</td></tr><tr><td>gpu-allocator</td><td>0.27.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>gpu-descriptor</td><td>0.3.2</td><td>MIT OR Apache-2.0</td></tr><tr><td>gpu-descriptor-types</td><td>0.2.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>half</td><td>2.7.1</td><td>MIT OR Apache-2.0</td></tr><tr><td>hashbrown</td><td>0.15.5</td><td>MIT OR Apache-2.0</td></tr><tr><td>hashbrown</td><td>0.17.1</td><td>MIT OR Apache-2.0</td></tr><tr><td>heck</td><td>0.5.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>hexf-parse</td><td>0.2.1</td><td>CC0-1.0</td></tr><tr><td>image</td><td>0.25.2</td><td>MIT OR Apache-2.0</td></tr><tr><td>imagesize</td><td>0.13.0</td><td>MIT</td></tr><tr><td>indexmap</td><td>2.14.2</td><td>Apache-2.0 OR MIT</td></tr><tr><td>inflections</td><td>1.1.1</td><td>MIT</td></tr><tr><td>is_terminal_polyfill</td><td>1.70.2</td><td>MIT OR Apache-2.0</td></tr><tr><td>itoa</td><td>1.0.18</td><td>MIT OR Apache-2.0</td></tr><tr><td>jiff</td><td>0.2.35</td><td>Unlicense OR MIT</td></tr><tr><td>jiff-core</td><td>0.1.0</td><td>Unlicense OR MIT</td></tr><tr><td>khronos-egl</td><td>6.0.0</td><td>MIT/Apache-2.0</td></tr><tr><td>khronos_api</td><td>3.1.0</td><td>Apache-2.0</td></tr><tr><td>kurbo</td><td>0.11.3</td><td>Apache-2.0 OR MIT</td></tr><tr><td>lazy_static</td><td>1.5.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>libc</td><td>0.2.189</td><td>MIT OR Apache-2.0</td></tr><tr><td>libloading</td><td>0.8.9</td><td>ISC</td></tr><tr><td>libm</td><td>0.2.16</td><td>MIT</td></tr><tr><td>litrs</td><td>1.0.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>lock_api</td><td>0.4.14</td><td>MIT OR Apache-2.0</td></tr><tr><td>log</td><td>0.4.34</td><td>MIT OR Apache-2.0</td></tr><tr><td>memchr</td><td>2.8.3</td><td>Unlicense OR MIT</td></tr><tr><td>miniz_oxide</td><td>0.8.9</td><td>MIT OR Zlib OR Apache-2.0</td></tr><tr><td>miniz_oxide</td><td>0.9.1</td><td>MIT OR Zlib OR Apache-2.0</td></tr><tr><td>naga</td><td>25.0.1</td><td>MIT OR Apache-2.0</td></tr><tr><td>num-traits</td><td>0.2.19</td><td>MIT OR Apache-2.0</td></tr><tr><td>once_cell</td><td>1.21.4</td><td>MIT OR Apache-2.0</td></tr><tr><td>once_cell_polyfill</td><td>1.70.2</td><td>MIT OR Apache-2.0</td></tr><tr><td>ordered-float</td><td>4.6.0</td><td>MIT</td></tr><tr><td>parking_lot</td><td>0.12.5</td><td>MIT OR Apache-2.0</td></tr><tr><td>parking_lot_core</td><td>0.9.12</td><td>MIT OR Apache-2.0</td></tr><tr><td>pico-args</td><td>0.5.0</td><td>MIT</td></tr><tr><td>pkg-config</td><td>0.3.34</td><td>MIT OR Apache-2.0</td></tr><tr><td>png</td><td>0.17.16</td><td>MIT OR Apache-2.0</td></tr><tr><td>pollster</td><td>0.3.0</td><td>Apache-2.0/MIT</td></tr><tr><td>ppv-lite86</td><td>0.2.21</td><td>MIT OR Apache-2.0</td></tr><tr><td>presser</td><td>0.3.1</td><td>MIT OR Apache-2.0</td></tr><tr><td>proc-macro2</td><td>1.0.107</td><td>MIT OR Apache-2.0</td></tr><tr><td>profiling</td><td>1.0.18</td><td>MIT OR Apache-2.0</td></tr><tr><td>quote</td><td>1.0.47</td><td>MIT OR Apache-2.0</td></tr><tr><td>rand</td><td>0.8.8</td><td>MIT OR Apache-2.0</td></tr><tr><td>rand_chacha</td><td>0.3.1</td><td>MIT OR Apache-2.0</td></tr><tr><td>rand_core</td><td>0.6.4</td><td>MIT OR Apache-2.0</td></tr><tr><td>range-alloc</td><td>0.1.5</td><td>MIT OR Apache-2.0</td></tr><tr><td>raw-window-handle</td><td>0.6.2</td><td>MIT OR Apache-2.0 OR Zlib</td></tr><tr><td>regex</td><td>1.13.1</td><td>MIT OR Apache-2.0</td></tr><tr><td>regex-automata</td><td>0.4.18</td><td>MIT OR Apache-2.0</td></tr><tr><td>regex-syntax</td><td>0.8.11</td><td>MIT OR Apache-2.0</td></tr><tr><td>renderdoc-sys</td><td>1.1.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>resvg</td><td>0.45.1</td><td>Apache-2.0 OR MIT</td></tr><tr><td>rgb</td><td>0.8.53</td><td>MIT</td></tr><tr><td>roxmltree</td><td>0.20.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>rustc-hash</td><td>1.1.0</td><td>Apache-2.0/MIT</td></tr><tr><td>rustversion</td><td>1.0.23</td><td>MIT OR Apache-2.0</td></tr><tr><td>scopeguard</td><td>1.2.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>serde</td><td>1.0.229</td><td>MIT OR Apache-2.0</td></tr><tr><td>serde_core</td><td>1.0.229</td><td>MIT OR Apache-2.0</td></tr><tr><td>serde_derive</td><td>1.0.229</td><td>MIT OR Apache-2.0</td></tr><tr><td>serde_json</td><td>1.0.151</td><td>MIT OR Apache-2.0</td></tr><tr><td>simd-adler32</td><td>0.3.10</td><td>MIT</td></tr><tr><td>simplecss</td><td>0.2.2</td><td>Apache-2.0 OR MIT</td></tr><tr><td>siphasher</td><td>1.0.4</td><td>MIT OR Apache-2.0</td></tr><tr><td>smallvec</td><td>1.16.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>smol_str</td><td>0.2.2</td><td>MIT OR Apache-2.0</td></tr><tr><td>spirv</td><td>0.3.0+sdk-1.3.268.0</td><td>Apache-2.0</td></tr><tr><td>static_assertions</td><td>1.1.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>strict-num</td><td>0.1.1</td><td>MIT</td></tr><tr><td>strum</td><td>0.26.3</td><td>MIT</td></tr><tr><td>strum_macros</td><td>0.26.4</td><td>MIT</td></tr><tr><td>svgtypes</td><td>0.15.3</td><td>Apache-2.0 OR MIT</td></tr><tr><td>syn</td><td>2.0.119</td><td>MIT OR Apache-2.0</td></tr><tr><td>syn</td><td>3.0.5</td><td>MIT OR Apache-2.0</td></tr><tr><td>termcolor</td><td>1.4.1</td><td>Unlicense OR MIT</td></tr><tr><td>thiserror</td><td>1.0.69</td><td>MIT OR Apache-2.0</td></tr><tr><td>thiserror</td><td>2.0.20</td><td>MIT OR Apache-2.0</td></tr><tr><td>thiserror-impl</td><td>1.0.69</td><td>MIT OR Apache-2.0</td></tr><tr><td>thiserror-impl</td><td>2.0.20</td><td>MIT OR Apache-2.0</td></tr><tr><td>tiny-skia</td><td>0.11.4</td><td>BSD-3-Clause</td></tr><tr><td>tiny-skia-path</td><td>0.11.4</td><td>BSD-3-Clause</td></tr><tr><td>unicode-ident</td><td>1.0.24</td><td>(MIT OR Apache-2.0) AND Unicode-3.0</td></tr><tr><td>unicode-segmentation</td><td>1.13.3</td><td>MIT OR Apache-2.0</td></tr><tr><td>unicode-width</td><td>0.1.14</td><td>MIT OR Apache-2.0</td></tr><tr><td>urlencoding</td><td>2.1.3</td><td>MIT</td></tr><tr><td>usvg</td><td>0.45.1</td><td>Apache-2.0 OR MIT</td></tr><tr><td>utf8parse</td><td>0.2.2</td><td>Apache-2.0 OR MIT</td></tr><tr><td>wgpu</td><td>25.0.2</td><td>MIT OR Apache-2.0</td></tr><tr><td>wgpu-core</td><td>25.0.2</td><td>MIT OR Apache-2.0</td></tr><tr><td>wgpu-core-deps-windows-linux-android</td><td>25.0.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>wgpu-hal</td><td>25.0.2</td><td>MIT OR Apache-2.0</td></tr><tr><td>wgpu-types</td><td>25.0.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>winapi-util</td><td>0.1.11</td><td>Unlicense OR MIT</td></tr><tr><td>windows</td><td>0.58.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>windows-core</td><td>0.58.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>windows-implement</td><td>0.58.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>windows-interface</td><td>0.58.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>windows-link</td><td>0.2.1</td><td>MIT OR Apache-2.0</td></tr><tr><td>windows-result</td><td>0.2.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>windows-strings</td><td>0.1.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>windows-sys</td><td>0.48.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>windows-sys</td><td>0.52.0</td><td>MIT OR Apache-2.0</td></tr><tr><td>windows-sys</td><td>0.61.2</td><td>MIT OR Apache-2.0</td></tr><tr><td>windows-targets</td><td>0.48.5</td><td>MIT OR Apache-2.0</td></tr><tr><td>windows-targets</td><td>0.52.6</td><td>MIT OR Apache-2.0</td></tr><tr><td>windows_x86_64_msvc</td><td>0.48.5</td><td>MIT OR Apache-2.0</td></tr><tr><td>windows_x86_64_msvc</td><td>0.52.6</td><td>MIT OR Apache-2.0</td></tr><tr><td>winit</td><td>0.29.15</td><td>Apache-2.0</td></tr><tr><td>xml-rs</td><td>0.8.29</td><td>MIT</td></tr><tr><td>xmlwriter</td><td>0.1.0</td><td>MIT</td></tr><tr><td>zerocopy</td><td>0.8.56</td><td>BSD-2-Clause OR Apache-2.0 OR MIT</td></tr><tr><td>zerocopy-derive</td><td>0.8.56</td><td>BSD-2-Clause OR Apache-2.0 OR MIT</td></tr><tr><td>zlib-rs</td><td>0.6.7</td><td>Zlib</td></tr><tr><td>zmij</td><td>1.0.23</td><td>MIT</td></tr><tr><td>zune-core</td><td>0.4.12</td><td>MIT OR Apache-2.0 OR Zlib</td></tr><tr><td>zune-jpeg</td><td>0.4.21</td><td>MIT OR Apache-2.0 OR Zlib</td></tr><tr><td>Rust standard library</td><td>rustc 1.98.0 (88d9e12ae 2026-08-18)</td><td>MIT / Apache-2.0 and bundled notices</td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="wrap">
+<span class="dot brand" style="font-size:1.3rem">Kuruminha<b style="color:var(--ac)">.</b></span>
+<span>&copy; <span id="yr">2026-</span> Rafych. <span data-i="foot">Released under the MIT License.</span></span>
+<a href="#top" data-i="top">Back to top</a>
+</div>
+</footer>
+
+<script>
+const LIBS=[["adler2","2.0.1","0BSD OR MIT OR Apache-2.0"],["aho-corasick","1.1.5","Unlicense OR MIT"],["anstream","1.0.0","MIT OR Apache-2.0"],["anstyle","1.0.14","MIT OR Apache-2.0"],["anstyle-parse","1.0.0","MIT OR Apache-2.0"],["anstyle-query","1.1.5","MIT OR Apache-2.0"],["anstyle-wincon","3.0.11","MIT OR Apache-2.0"],["anyhow","1.0.104","MIT OR Apache-2.0"],["arrayref","0.3.9","BSD-2-Clause"],["arrayvec","0.7.8","MIT OR Apache-2.0"],["ash","0.38.0+1.3.281","MIT OR Apache-2.0"],["autocfg","1.5.1","Apache-2.0 OR MIT"],["base64","0.13.1","MIT/Apache-2.0"],["base64","0.22.1","MIT OR Apache-2.0"],["bit-set","0.8.0","Apache-2.0 OR MIT"],["bit-vec","0.8.0","Apache-2.0 OR MIT"],["bitflags","1.3.2","MIT/Apache-2.0"],["bitflags","2.13.1","MIT OR Apache-2.0"],["bytemuck","1.25.2","Zlib OR Apache-2.0 OR MIT"],["bytemuck_derive","1.12.0","Zlib OR Apache-2.0 OR MIT"],["byteorder","1.5.0","Unlicense OR MIT"],["byteorder-lite","0.1.0","Unlicense OR MIT"],["cfg-if","1.0.4","MIT OR Apache-2.0"],["cfg_aliases","0.1.1","MIT"],["cfg_aliases","0.2.2","MIT"],["codespan-reporting","0.12.0","Apache-2.0"],["colorchoice","1.0.5","MIT OR Apache-2.0"],["crc32fast","1.5.1","MIT OR Apache-2.0"],["cursor-icon","1.2.0","MIT OR Apache-2.0 OR Zlib"],["data-url","0.3.2","MIT OR Apache-2.0"],["defmt","1.1.1","MIT OR Apache-2.0"],["defmt-macros","1.1.1","MIT OR Apache-2.0"],["defmt-parser","1.0.0","MIT OR Apache-2.0"],["document-features","0.2.12","MIT OR Apache-2.0"],["env_filter","2.0.0","MIT OR Apache-2.0"],["env_logger","0.11.11","MIT OR Apache-2.0"],["equivalent","1.0.2","Apache-2.0 OR MIT"],["euclid","0.22.14","MIT OR Apache-2.0"],["fdeflate","0.3.7","MIT OR Apache-2.0"],["flate2","1.1.10","MIT OR Apache-2.0"],["float-cmp","0.9.0","MIT"],["foldhash","0.1.5","Zlib"],["getrandom","0.2.17","MIT OR Apache-2.0"],["gl_generator","0.14.0","Apache-2.0"],["glam","0.25.0","MIT OR Apache-2.0"],["glow","0.16.0","MIT OR Apache-2.0 OR Zlib"],["gltf","1.4.1","MIT OR Apache-2.0"],["gltf-derive","1.4.1","MIT OR Apache-2.0"],["gltf-json","1.4.1","MIT OR Apache-2.0"],["glutin_wgl_sys","0.6.1","Apache-2.0"],["gpu-alloc","0.6.2","MIT OR Apache-2.0"],["gpu-alloc-types","0.3.1","MIT OR Apache-2.0"],["gpu-allocator","0.27.0","MIT OR Apache-2.0"],["gpu-descriptor","0.3.2","MIT OR Apache-2.0"],["gpu-descriptor-types","0.2.0","MIT OR Apache-2.0"],["half","2.7.1","MIT OR Apache-2.0"],["hashbrown","0.15.5","MIT OR Apache-2.0"],["hashbrown","0.17.1","MIT OR Apache-2.0"],["heck","0.5.0","MIT OR Apache-2.0"],["hexf-parse","0.2.1","CC0-1.0"],["image","0.25.2","MIT OR Apache-2.0"],["imagesize","0.13.0","MIT"],["indexmap","2.14.2","Apache-2.0 OR MIT"],["inflections","1.1.1","MIT"],["is_terminal_polyfill","1.70.2","MIT OR Apache-2.0"],["itoa","1.0.18","MIT OR Apache-2.0"],["jiff","0.2.35","Unlicense OR MIT"],["jiff-core","0.1.0","Unlicense OR MIT"],["khronos-egl","6.0.0","MIT/Apache-2.0"],["khronos_api","3.1.0","Apache-2.0"],["kurbo","0.11.3","Apache-2.0 OR MIT"],["lazy_static","1.5.0","MIT OR Apache-2.0"],["libc","0.2.189","MIT OR Apache-2.0"],["libloading","0.8.9","ISC"],["libm","0.2.16","MIT"],["litrs","1.0.0","MIT OR Apache-2.0"],["lock_api","0.4.14","MIT OR Apache-2.0"],["log","0.4.34","MIT OR Apache-2.0"],["memchr","2.8.3","Unlicense OR MIT"],["miniz_oxide","0.8.9","MIT OR Zlib OR Apache-2.0"],["miniz_oxide","0.9.1","MIT OR Zlib OR Apache-2.0"],["naga","25.0.1","MIT OR Apache-2.0"],["num-traits","0.2.19","MIT OR Apache-2.0"],["once_cell","1.21.4","MIT OR Apache-2.0"],["once_cell_polyfill","1.70.2","MIT OR Apache-2.0"],["ordered-float","4.6.0","MIT"],["parking_lot","0.12.5","MIT OR Apache-2.0"],["parking_lot_core","0.9.12","MIT OR Apache-2.0"],["pico-args","0.5.0","MIT"],["pkg-config","0.3.34","MIT OR Apache-2.0"],["png","0.17.16","MIT OR Apache-2.0"],["pollster","0.3.0","Apache-2.0/MIT"],["ppv-lite86","0.2.21","MIT OR Apache-2.0"],["presser","0.3.1","MIT OR Apache-2.0"],["proc-macro2","1.0.107","MIT OR Apache-2.0"],["profiling","1.0.18","MIT OR Apache-2.0"],["quote","1.0.47","MIT OR Apache-2.0"],["rand","0.8.8","MIT OR Apache-2.0"],["rand_chacha","0.3.1","MIT OR Apache-2.0"],["rand_core","0.6.4","MIT OR Apache-2.0"],["range-alloc","0.1.5","MIT OR Apache-2.0"],["raw-window-handle","0.6.2","MIT OR Apache-2.0 OR Zlib"],["regex","1.13.1","MIT OR Apache-2.0"],["regex-automata","0.4.18","MIT OR Apache-2.0"],["regex-syntax","0.8.11","MIT OR Apache-2.0"],["renderdoc-sys","1.1.0","MIT OR Apache-2.0"],["resvg","0.45.1","Apache-2.0 OR MIT"],["rgb","0.8.53","MIT"],["roxmltree","0.20.0","MIT OR Apache-2.0"],["rustc-hash","1.1.0","Apache-2.0/MIT"],["rustversion","1.0.23","MIT OR Apache-2.0"],["scopeguard","1.2.0","MIT OR Apache-2.0"],["serde","1.0.229","MIT OR Apache-2.0"],["serde_core","1.0.229","MIT OR Apache-2.0"],["serde_derive","1.0.229","MIT OR Apache-2.0"],["serde_json","1.0.151","MIT OR Apache-2.0"],["simd-adler32","0.3.10","MIT"],["simplecss","0.2.2","Apache-2.0 OR MIT"],["siphasher","1.0.4","MIT OR Apache-2.0"],["smallvec","1.16.0","MIT OR Apache-2.0"],["smol_str","0.2.2","MIT OR Apache-2.0"],["spirv","0.3.0+sdk-1.3.268.0","Apache-2.0"],["static_assertions","1.1.0","MIT OR Apache-2.0"],["strict-num","0.1.1","MIT"],["strum","0.26.3","MIT"],["strum_macros","0.26.4","MIT"],["svgtypes","0.15.3","Apache-2.0 OR MIT"],["syn","2.0.119","MIT OR Apache-2.0"],["syn","3.0.5","MIT OR Apache-2.0"],["termcolor","1.4.1","Unlicense OR MIT"],["thiserror","1.0.69","MIT OR Apache-2.0"],["thiserror","2.0.20","MIT OR Apache-2.0"],["thiserror-impl","1.0.69","MIT OR Apache-2.0"],["thiserror-impl","2.0.20","MIT OR Apache-2.0"],["tiny-skia","0.11.4","BSD-3-Clause"],["tiny-skia-path","0.11.4","BSD-3-Clause"],["unicode-ident","1.0.24","(MIT OR Apache-2.0) AND Unicode-3.0"],["unicode-segmentation","1.13.3","MIT OR Apache-2.0"],["unicode-width","0.1.14","MIT OR Apache-2.0"],["urlencoding","2.1.3","MIT"],["usvg","0.45.1","Apache-2.0 OR MIT"],["utf8parse","0.2.2","Apache-2.0 OR MIT"],["wgpu","25.0.2","MIT OR Apache-2.0"],["wgpu-core","25.0.2","MIT OR Apache-2.0"],["wgpu-core-deps-windows-linux-android","25.0.0","MIT OR Apache-2.0"],["wgpu-hal","25.0.2","MIT OR Apache-2.0"],["wgpu-types","25.0.0","MIT OR Apache-2.0"],["winapi-util","0.1.11","Unlicense OR MIT"],["windows","0.58.0","MIT OR Apache-2.0"],["windows-core","0.58.0","MIT OR Apache-2.0"],["windows-implement","0.58.0","MIT OR Apache-2.0"],["windows-interface","0.58.0","MIT OR Apache-2.0"],["windows-link","0.2.1","MIT OR Apache-2.0"],["windows-result","0.2.0","MIT OR Apache-2.0"],["windows-strings","0.1.0","MIT OR Apache-2.0"],["windows-sys","0.48.0","MIT OR Apache-2.0"],["windows-sys","0.52.0","MIT OR Apache-2.0"],["windows-sys","0.61.2","MIT OR Apache-2.0"],["windows-targets","0.48.5","MIT OR Apache-2.0"],["windows-targets","0.52.6","MIT OR Apache-2.0"],["windows_x86_64_msvc","0.48.5","MIT OR Apache-2.0"],["windows_x86_64_msvc","0.52.6","MIT OR Apache-2.0"],["winit","0.29.15","Apache-2.0"],["xml-rs","0.8.29","MIT"],["xmlwriter","0.1.0","MIT"],["zerocopy","0.8.56","BSD-2-Clause OR Apache-2.0 OR MIT"],["zerocopy-derive","0.8.56","BSD-2-Clause OR Apache-2.0 OR MIT"],["zlib-rs","0.6.7","Zlib"],["zmij","1.0.23","MIT"],["zune-core","0.4.12","MIT OR Apache-2.0 OR Zlib"],["zune-jpeg","0.4.21","MIT OR Apache-2.0 OR Zlib"],["Rust standard library","rustc 1.98.0 (88d9e12ae 2026-08-18)","MIT / Apache-2.0 and bundled notices"]];
+const FONTS=[["Doto","Copyright 2024 The Doto Project Authors","OFL-1.1"],["DotGothic16","Copyright 2020 The DotGothic16 Project Authors","OFL-1.1"],["Noto Sans JP","Copyright 2014-2021 Adobe","OFL-1.1"]];
+const T={
+en:{nav_menu:"Menu",nav_features:"Features",nav_download:"Download",nav_license:"Licenses",btn_dl:"Download",btn_dl_win:"Download for Windows / Linux",btn_more:"See features",
+hero_lead:"A tiny desktop companion. Pick any avatar you love and let it wander across your screen while you work.",stage_cap:"Promo video",v_play:"Play",v_pause:"Pause",v_mute:"Mute",v_unmute:"Unmute",v_full:"Fullscreen",v_exit:"Exit fullscreen",v_seek:"Seek",v_vol:"Volume",v_err:"The video could not be loaded.",
+f_title:"What it does",f_sub:"Lightweight, transparent, and always on your desktop. It lives in the system tray and stays out of your way.",
+f1_t:"Your favorite avatar",f1_d:"Load the VRM avatar you love and see it come to life, rendered with a transparent background and no window frame.",
+f2_t:"Walks your desktop",f2_d:"Your avatar strolls along your screen, right on top of your windows and wallpaper.",
+f3_t:"AI and agents with free MODs",f3_d:"Add free MODs to chat with an AI or let it operate as an agent for you.",f3_u:"Open my notes, please.",f3_a:"Sure. Opening them now.",
+f4_t:"Many at once",f4_d:"Let several avatars walk together. Build a little crowd on your desktop.",
+f5_t:"Automatic memory release",f5_d:"Kuruminha frees memory by itself to stay light. Prefer to manage it yourself? Turn it off any time.",
+f6_t:"Multilingual",f6_d:"English, Russian and Japanese. It follows your system language by default.",
+d_title:"Get Kuruminha",d_sub:"Free and open source. Download it and your avatar will be walking in a minute.",d_note:"Free to use under the MIT License.",
+d_os:"Supported OS",d_lic:"License",
+d_steps:"Getting started",d_s1:"Download and extract the archive.",d_s2:"Run Kuruminha. It appears in the system tray.",d_s3:"Right-click the tray icon, open Settings and choose your avatar.",
+l_title:"Licenses",l_sub:"Kuruminha is built on wonderful open source work. Thank you to every author.",
+l_app:"Kuruminha itself is released under the MIT License.",l_fonts:"Fonts",l_fonts_d:"Bundled typefaces, each under the SIL Open Font License 1.1.",
+l_libs:"Libraries",l_libs_d:"Libraries and runtime used by the software. Full license texts are in the app's license window.",
+l_search:"Search libraries or licenses",l_name:"Name",l_ver:"Version",l_license:"License",l_copy:"Copyright",foot:"Released under the MIT License.",top:"Back to top"},
+ru:{nav_menu:"Меню",nav_features:"Возможности",nav_download:"Скачать",nav_license:"Лицензии",btn_dl:"Скачать",btn_dl_win:"Скачать для Windows / Linux",btn_more:"Возможности",
+hero_lead:"Маленький помощник на рабочем столе. Выберите любимого аватара, и он будет гулять по экрану, пока вы работаете.",stage_cap:"Промо-видео",v_play:"Воспроизвести",v_pause:"Пауза",v_mute:"Выключить звук",v_unmute:"Включить звук",v_full:"Во весь экран",v_exit:"Выйти из полноэкранного режима",v_seek:"Перемотка",v_vol:"Громкость",v_err:"Не удалось загрузить видео.",
+f_title:"Что умеет",f_sub:"Лёгкая программа с прозрачным окном. Живёт в системном трее и не мешает работе.",
+f1_t:"Ваш любимый аватар",f1_d:"Загрузите любимого VRM-аватара и увидите, как он оживает на прозрачном фоне без рамки окна.",
+f2_t:"Гуляет по рабочему столу",f2_d:"Аватар прогуливается по экрану прямо поверх окон и обоев.",
+f3_t:"ИИ и агенты через бесплатные МОДы",f3_d:"Добавьте бесплатные МОДы, чтобы общаться с ИИ или поручать ему действия как агенту.",f3_u:"Открой мои заметки.",f3_a:"Хорошо, открываю.",
+f4_t:"Сразу несколько",f4_d:"Пусть гуляют несколько аватаров одновременно. Соберите целую компанию на рабочем столе.",
+f5_t:"Автоматическое освобождение памяти",f5_d:"Kuruminha сама освобождает память, чтобы оставаться лёгкой. Хотите управлять вручную? Отключите функцию в любой момент.",
+f6_t:"Многоязычность",f6_d:"Английский, русский и японский. По умолчанию язык берётся из системы.",
+d_title:"Скачать Kuruminha",d_sub:"Бесплатно и с открытым кодом. Скачайте, и уже через минуту ваш аватар отправится на прогулку.",d_note:"Бесплатно по лицензии MIT.",
+d_os:"Поддерживаемые ОС",d_lic:"Лицензия",
+d_steps:"Быстрый старт",d_s1:"Скачайте и распакуйте архив.",d_s2:"Запустите Kuruminha. Значок появится в системном трее.",d_s3:"Щёлкните правой кнопкой по значку, откройте настройки и выберите аватара.",
+l_title:"Лицензии",l_sub:"Kuruminha создана на основе замечательных открытых проектов. Спасибо всем авторам.",
+l_app:"Сама Kuruminha распространяется по лицензии MIT.",l_fonts:"Шрифты",l_fonts_d:"Встроенные шрифты, каждый по лицензии SIL Open Font License 1.1.",
+l_libs:"Библиотеки",l_libs_d:"Библиотеки и среда выполнения, используемые в программе. Полные тексты лицензий есть в окне лицензий приложения.",
+l_search:"Поиск по библиотекам и лицензиям",l_name:"Название",l_ver:"Версия",l_license:"Лицензия",l_copy:"Авторские права",foot:"Распространяется по лицензии MIT.",top:"Наверх"},
+ja:{nav_menu:"メニュー",nav_features:"特徴",nav_download:"ダウンロード",nav_license:"ライセンス",btn_dl:"ダウンロード",btn_dl_win:"Windows / Linux版をダウンロード",btn_more:"特徴を見る",
+hero_lead:"デスクトップに住む小さな相棒。好きなアバターを選んで、作業中の画面を自由に歩かせよう。",stage_cap:"プロモーション動画",v_play:"再生",v_pause:"一時停止",v_mute:"ミュート",v_unmute:"ミュート解除",v_full:"全画面",v_exit:"全画面を終了",v_seek:"シークバー",v_vol:"音量",v_err:"動画を読み込めませんでした。",
+f_title:"できること",f_sub:"軽量で透明、いつもデスクトップのそばに。タスクトレイに常駐して作業の邪魔をしません。",
+f1_t:"好きなアバターで",f1_d:"お気に入りのVRMアバターを読み込むだけ。枠なし・背景透明で、そのまま画面に現れます。",
+f2_t:"デスクトップを歩く",f2_d:"ウィンドウや壁紙の上を、アバターがのんびり歩き回ります。",
+f3_t:"無料MODでAIやエージェントも",f3_d:"無料のMODを追加すれば、AIとの会話やエージェント操作が楽しめます。",f3_u:"メモを開いて。",f3_a:"はい、開きますね。",
+f4_t:"複数人を同時に",f4_d:"何人でも一緒に歩かせられます。デスクトップがにぎやかになります。",
+f5_t:"自動メモリ解放",f5_d:"メモリを自動で解放して軽さをキープ。自分で管理したいときは、いつでもオフにできます。",
+f6_t:"多言語対応",f6_d:"英語・ロシア語・日本語に対応。初期設定ではOSの言語に合わせます。",
+d_title:"Kuruminhaを入手",d_sub:"無料のオープンソース。ダウンロードすれば、すぐにアバターが歩き出します。",d_note:"MITライセンスのもとで無料で利用できます。",
+d_os:"対応OS",d_lic:"ライセンス",
+d_steps:"はじめかた",d_s1:"ダウンロードしてアーカイブを展開します。",d_s2:"Kuruminhaを起動すると、タスクトレイに表示されます。",d_s3:"トレイアイコンを右クリックして設定を開き、アバターを選びます。",
+l_title:"ライセンス",l_sub:"Kuruminhaは素晴らしいオープンソースの成果の上に成り立っています。すべての作者に感謝します。",
+l_app:"Kuruminha本体はMITライセンスで公開されています。",l_fonts:"フォント",l_fonts_d:"同梱している書体です。いずれもSIL Open Font License 1.1です。",
+l_libs:"ライブラリ",l_libs_d:"ソフトウェアが使用しているライブラリとランタイムです。ライセンス全文はアプリ内のライセンス画面にあります。",
+l_search:"ライブラリ・ライセンスを検索",l_name:"名前",l_ver:"バージョン",l_license:"ライセンス",l_copy:"著作権",foot:"MITライセンスで公開しています。",top:"ページ上部へ"}
+};
+const SUP=["en","ru","ja"],KEY="kuruminha-lang";
+function detect(){let s=null;try{s=localStorage.getItem(KEY)}catch(e){}
+if(SUP.includes(s))return s;
+for(const l of (navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||""])){const c=String(l).toLowerCase().slice(0,2);if(SUP.includes(c))return c}
+return"en"}
+function apply(l){const d=T[l];document.documentElement.lang=l;
+document.querySelectorAll("[data-i]").forEach(e=>{e.textContent=d[e.dataset.i]});
+document.querySelectorAll("[data-ph]").forEach(e=>{e.placeholder=d[e.dataset.ph]});
+document.querySelectorAll("[data-al]").forEach(e=>{e.setAttribute("aria-label",d[e.dataset.al])});
+document.querySelectorAll("[data-lang]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.lang===l)));if(window.__pl)window.__pl()}
+document.querySelectorAll("[data-lang]").forEach(b=>b.addEventListener("click",()=>{const l=b.dataset.lang;apply(l);try{localStorage.setItem(KEY,l)}catch(e){}}));
+apply(detect());
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+document.getElementById("fonts").innerHTML=FONTS.map(f=>`<tr><td>${f[0]}</td><td>${f[1]}</td><td>${f[2]}</td></tr>`).join("");
+const lb=document.getElementById("libs"),cnt=document.getElementById("cnt");
+function renderLibs(q){q=q.trim().toLowerCase();const r=LIBS.filter(x=>!q||x.join(" ").toLowerCase().includes(q));
+lb.innerHTML=r.map(x=>`<tr><td>${esc(x[0])}</td><td>${esc(x[1])}</td><td>${esc(x[2])}</td></tr>`).join("");cnt.textContent="("+r.length+"/"+LIBS.length+")"}
+renderLibs("");
+document.getElementById("q").addEventListener("input",e=>renderLibs(e.target.value));
+const sw=document.getElementById("sw"),mem=document.getElementById("mem");
+for(let i=0;i<20;i++)mem.appendChild(document.createElement("i"));
+let level=17,timer=0;
+function paint(){[...mem.children].forEach((c,i)=>c.classList.toggle("on",i<level))}
+function memTick(){if(sw.getAttribute("aria-checked")==="true"){level=level>6?level-2:6}else{level=Math.min(20,level+1)}paint()}
+sw.addEventListener("click",()=>{sw.setAttribute("aria-checked",String(sw.getAttribute("aria-checked")!=="true"));memTick()});
+paint();
+if(!(window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches))timer=setInterval(memTick,700);
+(function(){
+const pl=document.getElementById("pl");if(!pl)return;
+const v=pl.querySelector("video"),q=c=>pl.querySelector(c);
+const pp=q(".pp"),big=q(".bigplay"),mu=q(".mu"),fs=q(".fs"),sk=q(".seek"),vo=q(".vol"),cur=q(".cur"),dur=q(".dur");
+const ICON={play:["X....","XXX..","XXXXX","XXX..","X...."],pause:[".X.X.",".X.X.",".X.X.",".X.X.",".X.X."],vol:["..X..","XXX.X","XXX.X","XXX.X","..X.."],mute:["..X..","XXX..","XXX..","XXX..","..X.."],full:["XX.XX","X...X",".....","X...X","XX.XX"],exit:["X...X",".X.X.","..X..",".X.X.","X...X"]};
+function icon(n){let c="";ICON[n].forEach((r,y)=>{for(let x=0;x<5;x++)if(r.charAt(x)==="X")c+='<circle cx="'+(x+.5)+'" cy="'+(y+.5)+'" r=".4"/>'});return'<svg viewBox="0 0 5 5" aria-hidden="true">'+c+"</svg>"}
+const L=k=>(T[document.documentElement.lang]||T.en)[k];
+const fmt=t=>{if(!isFinite(t)||t<0)t=0;t=Math.floor(t);const h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=t%60;return(h?h+":"+(m<10?"0":""):"")+m+":"+(s<10?"0":"")+s};
+const ld=q(".load");for(let k=0;k<12;k++){const d=document.createElement("i");d.style.transform="rotate("+k*30+"deg) translateY(-26px)";d.style.animationDelay="-"+(1.2-k*.1).toFixed(2)+"s";ld.appendChild(d)}
+function busy(b){pl.classList.toggle("loading",b);pl.setAttribute("aria-busy",String(b))}
+busy(v.readyState<1);
+["loadstart"].forEach(n=>v.addEventListener(n,()=>{if(v.readyState<1)busy(true)}));
+["loadedmetadata","loadeddata","canplay","playing","seeked","error"].forEach(n=>v.addEventListener(n,()=>busy(false)));
+v.addEventListener("waiting",()=>busy(true));
+v.addEventListener("seeking",()=>{if(v.readyState<3)busy(true)});
+const reqFS=pl.requestFullscreen||pl.webkitRequestFullscreen;
+const isFS=()=>document.fullscreenElement===pl||document.webkitFullscreenElement===pl;
+if(!reqFS&&!v.webkitEnterFullscreen)fs.style.display="none";
+let volOK=true;try{v.volume=.5;volOK=v.volume===.5;v.volume=1}catch(e){volOK=false}
+if(!volOK)vo.style.display="none";
+function slider(el,get,set,step,text){
+const fill=el.querySelector("i"),th=el.querySelector("b");let drag=false;
+const paint=()=>{const r=Math.max(0,Math.min(1,get()));fill.style.width=r*100+"%";th.style.left=r*100+"%";el.setAttribute("aria-valuenow",String(Math.round(r*100)));if(text)el.setAttribute("aria-valuetext",text())};
+const at=e=>{const b=el.getBoundingClientRect();return Math.max(0,Math.min(1,(e.clientX-b.left)/b.width))};
+el.addEventListener("pointerdown",e=>{if(e.button>0)return;drag=true;try{el.setPointerCapture(e.pointerId)}catch(x){}el.focus();set(at(e));paint();e.preventDefault()});
+el.addEventListener("pointermove",e=>{if(drag){set(at(e));paint()}});
+const end=()=>{drag=false};el.addEventListener("pointerup",end);el.addEventListener("pointercancel",end);
+el.addEventListener("keydown",e=>{const st=step(),r=get();let n=null;
+if(e.key==="ArrowRight"||e.key==="ArrowUp")n=r+st;else if(e.key==="ArrowLeft"||e.key==="ArrowDown")n=r-st;else if(e.key==="Home")n=0;else if(e.key==="End")n=1;
+if(n!==null){set(Math.max(0,Math.min(1,n)));paint();e.preventDefault();e.stopPropagation()}});
+return paint}
+const paintSeek=slider(sk,()=>v.duration>0?v.currentTime/v.duration:0,r=>{if(v.duration>0)v.currentTime=r*v.duration},()=>v.duration>0?5/v.duration:.05,()=>fmt(v.currentTime)+" / "+fmt(v.duration));
+const paintVol=slider(vo,()=>v.muted?0:v.volume,r=>{v.volume=r;v.muted=r===0},()=>.1,null);
+function time(){cur.textContent=fmt(v.currentTime);dur.textContent=fmt(v.duration);paintSeek()}
+function ui(){const on=!v.paused&&!v.ended,mt=v.muted||v.volume===0,full=isFS();
+pl.classList.toggle("playing",on);
+pp.innerHTML=icon(on?"pause":"play");pp.setAttribute("aria-label",L(on?"v_pause":"v_play"));
+big.innerHTML=icon("play");big.setAttribute("aria-label",L("v_play"));
+mu.innerHTML=icon(mt?"mute":"vol");mu.setAttribute("aria-pressed",String(mt));mu.setAttribute("aria-label",L(mt?"v_unmute":"v_mute"));
+fs.innerHTML=icon(full?"exit":"full");fs.setAttribute("aria-label",L(full?"v_exit":"v_full"));
+sk.setAttribute("aria-label",L("v_seek"));vo.setAttribute("aria-label",L("v_vol"));
+paintVol();time()}
+function toggle(){if(v.paused||v.ended){const p=v.play();if(p&&p.catch)p.catch(()=>{})}else v.pause()}
+function muteToggle(){v.muted=!v.muted;if(!v.muted&&v.volume===0)v.volume=.5}
+function fullToggle(){if(isFS()){(document.exitFullscreen||document.webkitExitFullscreen).call(document)}else if(reqFS){const p=reqFS.call(pl);if(p&&p.catch)p.catch(()=>{})}else if(v.webkitEnterFullscreen){v.webkitEnterFullscreen()}}
+pp.addEventListener("click",toggle);big.addEventListener("click",toggle);v.addEventListener("click",toggle);
+v.addEventListener("dblclick",fullToggle);mu.addEventListener("click",muteToggle);fs.addEventListener("click",fullToggle);
+["play","pause","ended","volumechange","loadedmetadata","durationchange"].forEach(n=>v.addEventListener(n,ui));
+v.addEventListener("timeupdate",time);
+v.addEventListener("error",()=>{pl.classList.add("failed");ui()});
+setTimeout(()=>{if(v.networkState===3)pl.classList.add("failed")},2000);
+document.addEventListener("fullscreenchange",ui);document.addEventListener("webkitfullscreenchange",ui);
+pl.addEventListener("keydown",e=>{const b=e.target.tagName==="BUTTON";
+if((e.key===" "||e.key==="k")&&!b){toggle();e.preventDefault()}
+else if(e.key==="m"){muteToggle()}
+else if(e.key==="f"){fullToggle()}
+else if(e.key==="ArrowRight"&&v.duration>0){v.currentTime=Math.min(v.duration,v.currentTime+5);e.preventDefault()}
+else if(e.key==="ArrowLeft"&&v.duration>0){v.currentTime=Math.max(0,v.currentTime-5);e.preventDefault()}});
+window.__pl=ui;ui();
+})();
+(function(){
+const hd=document.querySelector("header"),mb=document.getElementById("mb"),nv=document.getElementById("mnav");if(!mb)return;
+function set(o){hd.classList.toggle("open",o);mb.setAttribute("aria-expanded",String(o))}
+mb.addEventListener("click",()=>set(!hd.classList.contains("open")));
+nv.addEventListener("click",e=>{if(e.target.closest("a"))set(false)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&hd.classList.contains("open")){set(false);mb.focus()}});
+document.addEventListener("click",e=>{if(hd.classList.contains("open")&&!hd.contains(e.target))set(false)});
+window.addEventListener("resize",()=>{if(window.innerWidth>980)set(false)});
+})();
+(function(){const y=document.getElementById("yr");if(y)y.textContent=String(new Date().getFullYear())})();
+</script>
+</body>
+</html>
